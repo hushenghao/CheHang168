@@ -11,12 +11,12 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.bangcle.comapiprotect.CheckCodeUtil
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -155,7 +155,7 @@ class BatchDecryptActivity : AppCompatActivity() {
             }
 
             dialog.dismiss()
-            AlertDialog.Builder(this@BatchDecryptActivity)
+            MaterialAlertDialogBuilder(this@BatchDecryptActivity)
                 .setTitle("解密完成")
                 .setMessage(
                     "共解析${fileUris.size}个文件, 成功: ${successFileCount}个, 失败: ${fileUris.size - successFileCount}个\n" +
