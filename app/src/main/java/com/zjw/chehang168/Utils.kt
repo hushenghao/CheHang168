@@ -35,12 +35,14 @@ object Utils {
         val treeDocumentFile = DocumentFile.fromTreeUri(context, treeUri)
         if (treeDocumentFile != null && treeDocumentFile.isDirectory) {
             var currentDirectory: DocumentFile = treeDocumentFile
+            val regex = Regex("[:/\\\\*?\"<>|]")// uri路径不支持的字符
             for (folder in nestedFolders) {
-                var nextDirectory = currentDirectory.findFile(folder)
+                val sanitizedFolder = folder.replace(regex, "_")
+                var nextDirectory = currentDirectory.findFile(sanitizedFolder)
                 if (nextDirectory == null || !nextDirectory.isDirectory) {
-                    nextDirectory = currentDirectory.createDirectory(folder)
+                    nextDirectory = currentDirectory.createDirectory(sanitizedFolder)
                     if (nextDirectory == null) {
-                        println("子文件夹创建失败: $folder")
+                        println("子文件夹创建失败: $sanitizedFolder")
                         return null
                     }
                 }
